@@ -94,7 +94,6 @@ void loop() {
   DriveForward(); //start/resume forward driving 
 }
 
-
 // functions implemented to help in numerical printing to serial monitor
 float getVoltage(int pin) {
   float voltage = 5.0 * analogRead(pin) / 1024;
@@ -127,15 +126,12 @@ void workingSensorsCheck(){
     downwardSensor = true;
   }
 
-
-
   // ultrasonic sensor check
   digitalWrite(A3,LOW);
   delayMicroseconds(2);
   digitalWrite(A3,HIGH);
   delayMicroseconds(10);
   digitalWrite(A3,LOW);
-
 
   duration = pulseIn(A1, HIGH); // must be HIGH from data sheet
   Serial.println("Ultrasonic Sensor Check: ");
@@ -157,7 +153,6 @@ void workingSensorsCheck(){
   // wheel check
   wheelSensorsLoop();
 
-  
   Serial.println("\t");
   Serial.println("Status of all sensors: ");
   Serial.print(downwardSensor);
@@ -174,7 +169,6 @@ void workingSensorsCheck(){
   Serial.println("\t");
 
 }
-
 
 void wheelSensorsLoop(){
   Serial.println("Motor test:");
@@ -194,7 +188,6 @@ void wheelSensorsLoop(){
       rightwheel = true;
     }
   }
-  
 }
 
 void IRsensorsLoop(){
@@ -216,7 +209,6 @@ void IRsensorsLoop(){
   }
   
 }
-
 
 
 // actual driving program
@@ -249,7 +241,6 @@ void DriveForward(){
       delayMicroseconds(10);
       digitalWrite(A3,LOW);
 
-
     duration = pulseIn(A1, HIGH); // must be HIGH from data sheet
   
     Serial.print("Duration: ");
@@ -270,8 +261,6 @@ void DriveForward(){
    }
   }
 
-
-
 // while driving forward check the downward looking sensor to see if it is driving over a white piece of paper
 // -> makes sure the code isn't blocking other sensor data by blocking
       if(analogRead(A2) > 0.7){
@@ -280,8 +269,6 @@ void DriveForward(){
       left_motor.run(RELEASE);
       right_motor.run(RELEASE);
     }
-
-
 
 // simutanously while moving forward is checking IR sensor data to prevent blocking/other actions
 if(getVoltage(A4) < 0.5 && getVoltage(A5) < 0.5){
@@ -295,12 +282,9 @@ if(getVoltage(A4) < 0.5 && getVoltage(A5) < 0.5){
   
   turn180();
 
-
-  
   left_motor.run(RELEASE);
   right_motor.run(RELEASE);
   delay(4000);
-
 
 }else if(getVoltage(A4) < 0.5){
   Serial.println("OBSTACLE!! on LEFT");
@@ -317,12 +301,10 @@ if(getVoltage(A4) < 0.5 && getVoltage(A5) < 0.5){
   DriveBackward();
   delay(500);
 
-  
   left_motor.run(RELEASE);
   right_motor.run(RELEASE);
   delay(4000);
 
-  
 }else if(getVoltage(A5) < 0.5){
   Serial.println("OBSTACLE!! on RIGHT");
   left_motor.run(RELEASE);
@@ -341,10 +323,7 @@ if(getVoltage(A4) < 0.5 && getVoltage(A5) < 0.5){
   left_motor.run(RELEASE);
   right_motor.run(RELEASE);
   delay(4000);
-
   }
-  
-
 }
 
 void DriveBackward(){
